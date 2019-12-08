@@ -6,31 +6,31 @@ import random
 
 ##combinaison de point pour qui l'algo fonctionne bien
 
-point_x = [2,0,4,6,7]
-point_y = [0,4,4,0,2]
+# point_x = [2,0,4,6,7]
+# point_y = [0,4,4,0,2]
 
 ##
 
 
 ##Combinaison de point pour qui l'ago ne fonctionne pas (erreur de division par 0)
 
-#point_x = [14, 7, 17, 18, 3, 20, 12, 1, 9]
-#point_y = [12, 4, 2, 13, 6, 18, 5, 3, 11]
+# point_x = [14, 7, 17, 18, 3, 20, 12, 1, 9]
+# point_y = [12, 4, 2, 13, 6, 18, 5, 3, 11]
 
 ##
 
 ##à utiliser pour générer des points aléatoirement
 
-# for i in range(10):
-#     rand1 = random.randint(0,20)
-#     rand2 = random.randint(0,20)
-#     
-#     if not(rand1 in point_x):
-#         point_y += [rand2]
-#         point_x += [rand1]
-# 
-# print(point_x)
-# print(point_y)
+point_x = []
+point_y = []
+
+for i in range(4):
+    point_x += [random.randint(0,20)]
+    point_y += [random.randint(0,20)]
+    
+    
+print(point_x)
+print(point_y)
 
 
 def middle_point(point_x,point_y,t):
@@ -44,9 +44,11 @@ def middle_point(point_x,point_y,t):
         
         #calcul de la position x du point qui est à la distance (d = distance totale) égale à d*t entre les 2 points i et i+1
         point_x_new += [point_x[i]+(point_x[i+1]-point_x[i])*t] 
-        
-        #calcul de la position y du point qui est à la distance (d = distance totale) égale à d*t entre les 2 points i et i+1
-        point_y_new += [(point_y[i+1]-point_y[i])/(point_x[i+1]-point_x[i])*(t*(point_x[i+1]-point_x[i]))+point_y[i]] 
+        if point_x[i+1]-point_x[i] != 0:
+            #calcul de la position y du point qui est à la distance (d = distance totale) égale à d*t entre les 2 points i et i+1
+            point_y_new += [(point_y[i+1]-point_y[i])/(point_x[i+1]-point_x[i])*(t*(point_x[i+1]-point_x[i]))+point_y[i]] 
+        else:
+            point_y_new += [point_y[i]+(point_y[i+1]-point_y[i])*t] 
     
 
     return middle_point(point_x_new,point_y_new,t) #appel récursif de la fonction pour calculer les points suivants en fonction des points calculés
@@ -68,12 +70,12 @@ min_list = min([min(point_x),min(point_y)]) #on cherche le min et le max entre l
 max_list = max([max(point_x),max(point_y)])
 
 
-plt.xlim(min_list,max_list)
-plt.ylim(min_list,max_list)
+plt.xlim(min_list-min_list*0.2,max_list+max_list*0.2)
+plt.ylim(min_list-min_list*0.2,max_list+max_list*0.2)
 
 
 plt.plot(x_list,y_list) #on affiche la belle courbe
-plt.plot(point_x,point_y) #on affiche la courbe "brute" faite entre les points
+plt.scatter(point_x,point_y, marker = ".", color = "red") #on affiche la courbe "brute" faite entre les points
 plt.show() #on affiche le graphique
 
 print("ok") #pour dire que tout va bien !
