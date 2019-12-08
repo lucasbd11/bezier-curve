@@ -73,9 +73,11 @@ max_list = max([max(point_x),max(point_y)])
 plt.xlim(min_list-min_list*0.2,max_list+max_list*0.2)
 plt.ylim(min_list-min_list*0.2,max_list+max_list*0.2)
 
+plt.plot(point_x,point_y, marker = "x", color = "red",linestyle='--',linewidth=1)
+
+#plt.scatter(point_x,point_y, marker = "x", color = "red") #on affiche la courbe "brute" faite entre les points
 
 plt.plot(x_list,y_list) #on affiche la belle courbe
-plt.scatter(point_x,point_y, marker = ".", color = "red") #on affiche la courbe "brute" faite entre les points
 plt.show() #on affiche le graphique
 
 print("ok") #pour dire que tout va bien !
